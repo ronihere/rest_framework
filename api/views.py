@@ -34,18 +34,27 @@ def companyCreate(request):
     
     if serializer.is_valid():
         serializer.save()
-        
+    else:
+        return Response({'error':serializer.errors,
+                         'message':serializer.error_messages})
     return Response(serializer.data)
 
 @api_view(['POST'])
 def companyUpdate(request,id):
     company = Company.objects.get(company_id=id)
-    serializer = CompanySerializer(instance = company , data=request.data)
+    fe_data = request.data
+    serializer = CompanySerializer(instance = company , data=fe_data)
     
     if serializer.is_valid():
         serializer.save()
+    else:
+        return Response({'status':400,
+                         'error':serializer.errors,
+                         'message':serializer.error_messages})
         
-    return Response(serializer.data)
+    return Response({'status':203,
+                     'payload':fe_data,
+                     'message':'data sent by you'})
 
 @api_view(['DELETE'])
 def companyDelete(request,id):
