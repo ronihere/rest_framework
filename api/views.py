@@ -35,7 +35,8 @@ def companyCreate(request):
     if serializer.is_valid():
         serializer.save()
     else:
-        return Response({'error':serializer.errors,
+        return Response({'status':400,
+                         'error':serializer.errors,
                          'message':serializer.error_messages})
     return Response(serializer.data)
 
