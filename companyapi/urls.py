@@ -19,7 +19,8 @@ from companyapi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/',views.home_page , name='home'),
+    path('',views.home_page , name='home'),
+    path('revise/',include('revise.urls')),
     path('api/v1/',include('api.urls'))
     # path('api-auth/', include('rest_framework.urls'))
 ]
